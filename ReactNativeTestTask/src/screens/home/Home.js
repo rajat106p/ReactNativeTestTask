@@ -1,21 +1,97 @@
-import { StyleSheet, Text, View, Dimensions } from 'react-native'
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
-import React from 'react'
+import React, { useCallback, useEffect } from "react";
+import {
+  ActivityIndicator,
+  LogBox,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import Banner from "../../components/banner";
+import HomeHeader from "../../components/homeHeader";
+import { FlatList, ScrollView } from "react-native-gesture-handler";
+import ProductItem from "../../components/productItem";
+import { COLORS } from "../../constant/colors";
+import { getAllProducts, getSingleProduct } from "../../services";
+import { useDispatch, useSelector } from "react-redux";
+import { setAllProduct, setSingleProduct } from "../../redux/slice";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+
+LogBox.ignoreAllLogs();
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+  const { allProducts, cartItems } = useSelector((state) => state.product);
+
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(setSingleProduct({}));
+    }, [])
+  );
+
+  useEffect(() => {
+    const getData = async () => {
+      const res = await getAllProducts();
+      dispatch(setAllProduct(res?.products));
+    };
+    getData();
+  }, []);
+
+  const onSelectProduct = async (id) => {
+    navigation.navigate("ProductDetail");
+    const res = await getSingleProduct(id);
+    dispatch(setSingleProduct(res));
+  };
+
   return (
-    <View style={{flex: 1}}>
-        <View style={{
-            flex: .3,
-            backgroundColor:'#2A4BA0'
-        }}>
-            <Text>Hello</Text>
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.White }}>
+      <HomeHeader />
+      <ScrollView style={{ flex: 1 }}>
+        <View style={{ flexDirection: "row" }}>
+          <Banner color="#e0aa14" />
+          <Banner color="#e0aa144a" />
         </View>
-    </View>
-  )
-}
+        <View style={styles.subContainer}>
+          <Text style={styles.SectionHeader}>Recommended</Text>
+        </View>
+        {allProducts?.length > 0 ? (
+          <FlatList
+            contentContainerStyle={{
+              alignSelf: "center",
+              width: "90%",
+              marginBottom: 100,
+            }}
+            data={allProducts}
+            horizontal={false}
+            automaticallyAdjustContentInsets
+            renderItem={({ index, item }) => (
+              <ProductItem item={item} onPress={(id) => onSelectProduct(id)} />
+            )}
+            keyExtractor={({ id }) => id}
+            numColumns={2}
+          />
+        ) : (
+          <View style={{ height: 200, justifyContent: "center" }}>
+            <ActivityIndicator size={"large"} color={COLORS.primary} />
+          </View>
+        )}
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
 
-export default Home
+export default Home;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  SectionHeader: {
+    fontSize: 30,
+    fontWeight: "400",
+  },
+  subContainer: {
+    width: "90%",
+    alignSelf: "center",
+    marginTop: 15,
+  },
+});
