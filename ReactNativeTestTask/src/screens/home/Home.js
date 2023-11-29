@@ -45,6 +45,8 @@ const Home = () => {
     dispatch(setSingleProduct(res));
   };
 
+  
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.White }}>
       <HomeHeader />
@@ -58,11 +60,7 @@ const Home = () => {
         </View>
         {allProducts?.length > 0 ? (
           <FlatList
-            contentContainerStyle={{
-              alignSelf: "center",
-              width: "90%",
-              marginBottom: 100,
-            }}
+            contentContainerStyle={styles.listView}
             data={allProducts}
             horizontal={false}
             automaticallyAdjustContentInsets
@@ -94,4 +92,9 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: 15,
   },
+  listView:{
+    alignSelf: "center",
+    width: "90%",
+    marginBottom: 100,
+  }
 });

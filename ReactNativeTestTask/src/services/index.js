@@ -1,5 +1,5 @@
 const urls = {
-    allProducts: 'https://dummyjson.com/products',
+    allProducts: 'https://dummyjson.com/products?limit=100',
     singleProduct: (id) => `https://dummyjson.com/products/${id}`
 }
 
