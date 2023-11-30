@@ -8,11 +8,18 @@ const productSlice = createSlice({
     cartItems: [],
     favList: [],
     totalPrice: 0,
-    buyNow: {}
+    buyNow: {},
+    limit: 20,
   },
   reducers: {
     setAllProduct(state, action) {
       state.allProducts = action.payload;
+      state.limit = 20;
+    },
+
+    setMoreProduct(state, action) {
+      state.allProducts = [...state.allProducts, ...action.payload];
+      state.limit += 20;
     },
 
     setSingleProduct(state, action) {
@@ -53,30 +60,31 @@ const productSlice = createSlice({
       state.cartItems = all;
     },
 
-    setTotal(state,action){
-      state.totalPrice = action.payload
+    setTotal(state, action) {
+      state.totalPrice = action.payload;
     },
 
-    setBuyNow(state,action){
-      state.buyNow = {...action.payload}
+    setBuyNow(state, action) {
+      state.buyNow = { ...action.payload };
     },
 
-    addQuantityBN(state,action){
-      state.buyNow = {...state.buyNow, quantity: state.buyNow.quantity+1}
+    addQuantityBN(state, action) {
+      state.buyNow = { ...state.buyNow, quantity: state.buyNow.quantity + 1 };
     },
 
-    minusQuantityBN(state,action){
-      if(state.buyNow.quantity === 1){
-        state.buyNow = {}
-      }else{
-        state.buyNow = {...state.buyNow, quantity: state.buyNow.quantity-1}
+    minusQuantityBN(state, action) {
+      if (state.buyNow.quantity === 1) {
+        state.buyNow = {};
+      } else {
+        state.buyNow = { ...state.buyNow, quantity: state.buyNow.quantity - 1 };
       }
-    }
+    },
   },
 });
 
 export const {
   setAllProduct,
+  setMoreProduct,
   setSingleProduct,
   addtoCart,
   addQuantity,
@@ -86,7 +94,7 @@ export const {
   setTotal,
   setBuyNow,
   addQuantityBN,
-  minusQuantityBN
+  minusQuantityBN,
 } = productSlice.actions;
 
 export default productSlice.reducer;

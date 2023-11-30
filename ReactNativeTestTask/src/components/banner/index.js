@@ -1,26 +1,36 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Dimensions, StyleSheet, Text, View } from "react-native";
 import { EvilIcons } from "@expo/vector-icons";
 import { COLORS } from "../../constant/colors";
 import adjust from "../../constant/Adjust";
 
-export default Banner = ({ color }) => {
+const { width } = Dimensions.get("screen");
+
+export default Banner = ({ color, item }) => {
   return (
-    <View style={[styles.container, { backgroundColor: color }]}>
-      <View
-        style={{ width: "40%", justifyContent: "center", alignItems: "center" }}
-      >
-        <EvilIcons
-          name="image"
-          size={80}
-          color={COLORS.White}
-          style={{ marginTop: -15 }}
-        />
-      </View>
-      <View style={{ width: "54%", justifyContent: "center", }}>
-        <Text style={styles.text1}>Get</Text>
-        <Text style={styles.text2}>50% OFF</Text>
-        <Text style={styles.text3}>On first 03 order</Text>
+    <View
+      style={{ width: width, justifyContent: "center", alignItems: "center" }}
+    >
+      <View style={[styles.container, { backgroundColor: color }]}>
+        <View
+          style={{
+            width: "40%",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <EvilIcons
+            name="image"
+            size={80}
+            color={COLORS.White}
+            style={{ marginTop: -15 }}
+          />
+        </View>
+        <View style={{ width: "54%", justifyContent: "center" }}>
+          <Text style={styles.text1}>Get</Text>
+          <Text style={styles.text2}>{item?.off}% OFF</Text>
+          <Text style={styles.text3}>On first {item?.item} order</Text>
+        </View>
       </View>
     </View>
   );
@@ -28,13 +38,13 @@ export default Banner = ({ color }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: "64%",
+    width: width * 0.9,
     height: 120,
     borderRadius: 16,
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 15,
-    marginLeft: 20,
+    // marginLeft: 20,
   },
   text1: {
     fontSize: adjust(18),

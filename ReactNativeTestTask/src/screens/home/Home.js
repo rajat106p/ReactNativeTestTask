@@ -1,30 +1,44 @@
-import React, { useCallback, useEffect } from "react";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   ActivityIndicator,
   LogBox,
-  StatusBar,
   StyleSheet,
   Text,
   View,
 } from "react-native";
+import { FlatList, ScrollView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useDispatch, useSelector } from "react-redux";
 import Banner from "../../components/banner";
 import HomeHeader from "../../components/homeHeader";
-import { FlatList, ScrollView } from "react-native-gesture-handler";
 import ProductItem from "../../components/productItem";
-import { COLORS } from "../../constant/colors";
-import { getAllProducts, getSingleProduct } from "../../services";
-import { useDispatch, useSelector } from "react-redux";
-import { setAllProduct, setSingleProduct } from "../../redux/slice";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import adjust from "../../constant/Adjust";
+import { COLORS } from "../../constant/colors";
+import {
+  setAllProduct,
+  setMoreProduct,
+  setSingleProduct,
+} from "../../redux/slice";
+import {
+  getAllProducts,
+  getMoreProducts,
+  getSingleProduct,
+} from "../../services";
 
 LogBox.ignoreAllLogs();
 
 const Home = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const { allProducts } = useSelector((state) => state.product);
+  const [loading, setLoading] = useState(false);
+  const { allProducts, limit } = useSelector((state) => state.product);
+
+  const bannerData = [
+    { off: 50, item: 3 },
+    { off: 30, item: 2 },
+    { off: 20, item: 1 },
+  ];
 
   useFocusEffect(
     useCallback(() => {
@@ -46,16 +60,28 @@ const Home = () => {
     dispatch(setSingleProduct(res));
   };
 
-  
+  const getMoreProduct = async () => {
+    const res = await getMoreProducts(20, limit + 20);
+    dispatch(setMoreProduct(res?.products));
+    setLoading(false);
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.White }}>
       <HomeHeader />
       <ScrollView style={{ flex: 1 }}>
-        <View style={{ flexDirection: "row" }}>
-          <Banner color="#e0aa14" />
-          <Banner color="#e0aa144a" />
-        </View>
+        <FlatList
+          data={bannerData}
+          style={{ flex: 1 }}
+          contentContainerStyle={{ justifyContent: "center" }}
+          renderItem={({ item }) => {
+            return <Banner color="#e0aa14" item={item} />;
+          }}
+          pagingEnabled
+          horizontal
+          showsHorizontalScrollIndicator={false}
+        />
+
         <View style={styles.subContainer}>
           <Text style={styles.SectionHeader}>Recommended</Text>
         </View>
@@ -70,7 +96,11 @@ const Home = () => {
             )}
             keyExtractor={({ id }) => id}
             numColumns={2}
-            columnWrapperStyle={{justifyContent: 'space-evenly'}}
+            columnWrapperStyle={{ justifyContent: "space-evenly" }}
+            onEndReached={() => {
+              setLoading(true);
+              getMoreProduct();
+            }}
           />
         ) : (
           <View style={{ height: 200, justifyContent: "center" }}>
@@ -94,9 +124,9 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: 15,
   },
-  listView:{
+  listView: {
     alignSelf: "center",
     width: "90%",
     marginBottom: 100,
-  }
+  },
 });
