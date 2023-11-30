@@ -10,13 +10,13 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useSelector } from "react-redux";
 import { COLORS } from "../../constant/colors";
-import { useDispatch, useSelector } from "react-redux";
+import adjust from "../../constant/Adjust";
 
 const { height } = Dimensions.get("screen");
 
 const Favourite = () => {
-  const dispatch = useDispatch();
   const navigation = useNavigation();
   const { favList } = useSelector((state) => state.product);
   return (
@@ -85,7 +85,6 @@ const styles = StyleSheet.create({
     width: "90%",
     flexDirection: "row",
     height: 60,
-    marginTop: 20,
     alignSelf: "center",
     alignItems: "center",
   },
@@ -98,7 +97,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   headerText: {
-    fontSize: 20,
+    fontSize: adjust(20),
     fontWeight: "300",
     color: COLORS.Black100,
     marginLeft: 20,

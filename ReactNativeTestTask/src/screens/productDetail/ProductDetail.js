@@ -19,6 +19,7 @@ import Button from "../../components/button";
 import { COLORS } from "../../constant/colors";
 import { useDispatch } from "react-redux";
 import { addtoCart, setBuyNow } from "../../redux/slice";
+import adjust from "../../constant/Adjust";
 
 const { width } = Dimensions.get("screen");
 
@@ -30,7 +31,7 @@ const ProductDetail = () => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.White }}>
       {singleProduct.id ? (
-        <ScrollView style={{ flex: 1 }}>
+        <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
           <View style={styles.container}>
             <TouchableOpacity
               style={styles.backButton}
@@ -150,7 +151,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     flexDirection: "row",
     height: 60,
-    marginTop: 20,
     alignSelf: "center",
     alignItems: "center",
   },
@@ -164,12 +164,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   productName: {
-    fontSize: 50,
+    fontSize: adjust(50),
     fontWeight: "300",
     color: COLORS.Gray100,
   },
   brandName: {
-    fontSize: 50,
+    fontSize: adjust(50),
     fontWeight: "800",
     color: COLORS.Gray100,
   },
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   reviewText: {
-    fontSize: 14,
+    fontSize: adjust(14),
     fontWeight: "400",
     color: "#A1A1AB",
   },
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
   priceText: {
     color: COLORS.secondary,
     fontWeight: "700",
-    fontSize: 16,
+    fontSize: adjust(16),
   },
   discountView: {
     backgroundColor: COLORS.secondary,
@@ -204,12 +204,12 @@ const styles = StyleSheet.create({
   discountText: {
     color: COLORS.White,
     fontWeight: "400",
-    fontSize: 12,
+    fontSize: adjust(12),
   },
   flatListView: { height: 200, width: "100%", marginVertical: 10 },
   DetailHeading: { fontSize: 16, fontWeight: "400" },
   DetailDesc: {
-    fontSize: 16,
+    fontSize: adjust(16),
     fontWeight: "400",
     color: COLORS.GrayScale,
     marginTop: 10,
@@ -232,5 +232,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  badgeText: { color: COLORS.White, fontSize: 14 },
+  badgeText: { color: COLORS.White, fontSize: adjust(14) },
 });

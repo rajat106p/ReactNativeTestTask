@@ -10,6 +10,7 @@ import { COLORS } from "../../constant/colors";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import SearchIcon from "../../assets/SearchIcon";
+import adjust from "../../constant/Adjust";
 
 export default HomeHeader = () => {
   const navigation = useNavigation();
@@ -85,12 +86,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   headerText: {
-    fontSize: 22,
+    fontSize: adjust(22),
     color: "#FFF",
     fontWeight: "600",
   },
-  titleText: { fontSize: 11, fontWeight: "800", color: COLORS.White + "9a" },
-  valueText: { fontSize: 14, fontWeight: "500", color: COLORS.White },
+  titleText: { fontSize: adjust(11), fontWeight: "800", color: COLORS.White + "9a" },
+  valueText: { fontSize: adjust(14), fontWeight: "500", color: COLORS.White },
   rowCenter: { flexDirection: "row", alignItems: "center" },
   badgeView: {
     position: "absolute",
@@ -103,5 +104,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  badgeText: { color: COLORS.White, fontSize: 14 },
+  badgeText: { color: COLORS.White, fontSize: adjust(14) },
 });

@@ -1,5 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { COLORS } from "../../constant/colors";
+import adjust from "../../constant/Adjust";
 
 const Button = ({ title = "Click", onPress = () => {}, type = "solid", width }) => {
   return (
@@ -36,14 +37,14 @@ const styles = StyleSheet.create({
     borderRadius: 20
   },
   solidTitle: {
-    fontSize: 14,
+    fontSize: adjust(14),
     fontWeight: "600",
     lineHeight: 19.12,
     color: COLORS.White,
     marginTop: -3
   },
   outLineTitle: {
-    fontSize: 14,
+    fontSize: adjust(14),
     fontWeight: "600",
     lineHeight: 19.12,
     color: COLORS.secondary,

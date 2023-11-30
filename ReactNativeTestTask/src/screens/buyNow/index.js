@@ -18,6 +18,7 @@ import {
   addQuantityBN,
   minusQuantityBN
 } from "../../redux/slice";
+import adjust from "../../constant/Adjust";
 
 const { height } = Dimensions.get("screen");
 
@@ -125,7 +126,6 @@ const styles = StyleSheet.create({
     width: "90%",
     flexDirection: "row",
     height: 60,
-    marginTop: 20,
     alignSelf: "center",
     alignItems: "center",
   },
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   headerText: {
-    fontSize: 16,
+    fontSize: adjust(16),
     fontWeight: "400",
     color: COLORS.Black100,
     marginLeft: 20,
@@ -166,12 +166,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "25%",
   },
-  titleText: { fontSize: 14, fontWeight: "500", color: COLORS.Gray100 },
-  priceText: { fontSize: 14, fontWeight: "400", color: COLORS.Gray100 },
-  qtyText: { fontSize: 14, fontWeight: "500", color: COLORS.Gray100 },
-  editBtn: { fontSize: 12, fontWeight: "500", color: COLORS.secondary },
-  priceTitle: { fontSize: 14, fontWeight: "400", color: COLORS.Gray90 },
-  priceValue: { fontSize: 14, fontWeight: "500", color: COLORS.Gray100 },
+  titleText: { fontSize: adjust(14), fontWeight: "500", color: COLORS.Gray100 },
+  priceText: { fontSize: adjust(14), fontWeight: "400", color: COLORS.Gray100 },
+  qtyText: { fontSize: adjust(14), fontWeight: "500", color: COLORS.Gray100 },
+  editBtn: { fontSize: adjust(12), fontWeight: "500", color: COLORS.secondary },
+  priceTitle: { fontSize: adjust(14), fontWeight: "400", color: COLORS.Gray90 },
+  priceValue: { fontSize: adjust(14), fontWeight: "500", color: COLORS.Gray100 },
   priceRow: {
     flexDirection: "row",
     justifyContent: "space-between",

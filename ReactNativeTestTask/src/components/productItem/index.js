@@ -6,6 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { addtoCart, addtoFav, removeFromFav } from "../../redux/slice";
 import { useNavigation } from "@react-navigation/native";
+import adjust from "../../constant/Adjust";
 
 const ProductItem = ({ item, onPress = () => {} }) => {
   const dispatch = useDispatch();
@@ -70,19 +71,19 @@ const styles = StyleSheet.create({
   itemContainer: {
     height: 190,
     width: 160,
-    marginHorizontal: 17,
+    // marginHorizontal: 5,
     marginVertical: 10,
     borderRadius: 10,
     alignItems: "center",
     backgroundColor: COLORS.Black20,
   },
   priceText: {
-    fontSize: 14,
+    fontSize: adjust(14),
     fontWeight: "600",
     color: COLORS.Black100,
   },
   titleText: {
-    fontSize: 12,
+    fontSize: adjust(12),
     fontWeight: "400",
     color: COLORS.Black60,
   },

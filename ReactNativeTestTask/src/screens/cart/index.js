@@ -16,6 +16,7 @@ import QtyButton from "../../components/quantityButton";
 import { addQuantity, minusQuantity, setTotal } from "../../redux/slice";
 import Button from "../../components/button";
 import { useCallback } from "react";
+import adjust from "../../constant/Adjust";
 
 const { height } = Dimensions.get("screen");
 
@@ -111,7 +112,7 @@ const Cart = () => {
       />
 
       <View style={styles.priceCard}>
-        <View style={[styles.priceRow,{marginTop: 10}]}>
+        <View style={[styles.priceRow, { marginTop: 10 }]}>
           <Text style={styles.priceTitle}>Subtotal</Text>
           <Text style={styles.priceValue}>
             ${Number(totalPrice).toFixed(2)}
@@ -121,7 +122,7 @@ const Cart = () => {
           <Text style={styles.priceTitle}>Delivery</Text>
           <Text tyle={styles.priceValue}>${Number(2.0).toFixed(2)}</Text>
         </View>
-        <View style={[styles.priceRow,{marginBottom: 10}]}>
+        <View style={[styles.priceRow, { marginBottom: 10 }]}>
           <Text style={styles.priceTitle}>Subtotal</Text>
           <Text tyle={styles.priceValue}>
             ${Number(totalPrice + 2).toFixed(2)}
@@ -140,7 +141,6 @@ const styles = StyleSheet.create({
     width: "90%",
     flexDirection: "row",
     height: 60,
-    marginTop: 20,
     alignSelf: "center",
     alignItems: "center",
   },
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   headerText: {
-    fontSize: 16,
+    fontSize: adjust(16),
     fontWeight: "400",
     color: COLORS.Black100,
     marginLeft: 20,
@@ -181,12 +181,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "25%",
   },
-  titleText: { fontSize: 14, fontWeight: "500", color: COLORS.Gray100 },
-  priceText: { fontSize: 14, fontWeight: "400", color: COLORS.Gray100 },
-  qtyText: { fontSize: 14, fontWeight: "500", color: COLORS.Gray100 },
-  editBtn: { fontSize: 12, fontWeight: "500", color: COLORS.secondary },
-  priceTitle: { fontSize: 14, fontWeight: "400", color: COLORS.Gray90 },
-  priceValue: { fontSize: 14, fontWeight: "500", color: COLORS.Gray100 },
+  titleText: { fontSize: adjust(14), fontWeight: "500", color: COLORS.Gray100 },
+  priceText: { fontSize: adjust(14), fontWeight: "400", color: COLORS.Gray100 },
+  qtyText: { fontSize: adjust(14), fontWeight: "500", color: COLORS.Gray100 },
+  editBtn: { fontSize: adjust(12), fontWeight: "500", color: COLORS.secondary },
+  priceTitle: { fontSize: adjust(14), fontWeight: "400", color: COLORS.Gray90 },
+  priceValue: { fontSize: adjust(14), fontWeight: "500", color: COLORS.Gray100 },
   priceRow: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -199,6 +199,6 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.Black10,
     borderRadius: 10,
     alignItems: "center",
-    marginVertical: 10
+    marginVertical: 10,
   },
 });

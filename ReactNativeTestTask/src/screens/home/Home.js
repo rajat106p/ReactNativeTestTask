@@ -17,13 +17,14 @@ import { getAllProducts, getSingleProduct } from "../../services";
 import { useDispatch, useSelector } from "react-redux";
 import { setAllProduct, setSingleProduct } from "../../redux/slice";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import adjust from "../../constant/Adjust";
 
 LogBox.ignoreAllLogs();
 
 const Home = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const { allProducts, cartItems } = useSelector((state) => state.product);
+  const { allProducts } = useSelector((state) => state.product);
 
   useFocusEffect(
     useCallback(() => {
@@ -64,11 +65,12 @@ const Home = () => {
             data={allProducts}
             horizontal={false}
             automaticallyAdjustContentInsets
-            renderItem={({ index, item }) => (
+            renderItem={({ item }) => (
               <ProductItem item={item} onPress={(id) => onSelectProduct(id)} />
             )}
             keyExtractor={({ id }) => id}
             numColumns={2}
+            columnWrapperStyle={{justifyContent: 'space-evenly'}}
           />
         ) : (
           <View style={{ height: 200, justifyContent: "center" }}>
@@ -84,7 +86,7 @@ export default Home;
 
 const styles = StyleSheet.create({
   SectionHeader: {
-    fontSize: 30,
+    fontSize: adjust(30),
     fontWeight: "400",
   },
   subContainer: {
